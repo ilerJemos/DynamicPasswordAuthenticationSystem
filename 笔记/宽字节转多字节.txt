@@ -1,0 +1,3 @@
+int len =WideCharToMultiByte(CP_ACP,0,str1,-1,NULL,0,NULL,NULL);
+char *ptxtTemp =new char[len +1];
+WideCharToMultiByte(CP_ACP,0,str1,-1,ptxtTemp,len,NULL,NULL );

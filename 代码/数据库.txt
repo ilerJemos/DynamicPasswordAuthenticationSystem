@@ -1,0 +1,811 @@
+班级信息表（2）
+create table class(
+classno varchar2(6) primary key,
+classname varchar(20) not null,
+classmajor varchar2(20),
+classdept varchar2(20),
+studentnumber smallint check(studentnumber between 20 and 40)
+)
+
+/
+课程信息表（3）
+create table course(
+cno varchar2(6) primary key,
+cname varchar(30) not null,
+ccredit smallint check(ccredit between 1 and 4)
+)
+
+/
+教师信息表（5）
+create table teacher(
+tno number(6) primary key,
+tname varchar2(8) not null,
+tsex varchar2(20) check(tsex in ('男','女')),
+tbirthday date,
+ttitle varchar2(20))
+
+/
+学生信息表（1）
+create table Student(
+sno varchar2(8) Primary key,
+sname varchar2(8) not null,
+ssex varchar2(2) check (ssex in('男','女')),
+sbirthday date,
+classno varchar2(6) references class(classno),
+Totalcredit Smallint default 0)
+
+/
+选修课程信息表（4）
+create table sc(
+sno varchar(8) references student(sno),
+cno varchar(6) references course(cno),
+grade integer constraint b3 check(grade between 0 and 100)
+)
+
+/
+教师任课情况表（6）
+create table teaching (
+tno number(6) references teacher(tno),
+cno varchar(6) references course(cno),
+language varchar2(10) check (language in('Chinese','Bilingual','English'))
+)
+
+/
+
+班级信息表（2）
+insert into class values('Rj0801','软件0801','软件工程','软件开发',24);
+insert into class values('Rj0802','软件0802','软件工程','软件开发',26);
+insert into class values('Rj0803','软件0803','软件工程','数字媒体',25);
+insert into class values('Rj0804','软件0804','软件工程','软件开发',25);
+insert into class values('Rj0805','软件0805','软件工程','数字媒体',24);
+insert into class values('Rj0806','软件0806','软件工程','软件开发',24);
+
+课程信息表（3）
+insert into course values('800001','计算机基础',4);
+insert into course values('800002','程序设计语言',4);
+insert into course values('800003','数据结构',4);
+insert into course values('800011','数据库系统',4);
+insert into course values('800013','计算机网络',3);
+insert into course values('800015','微机原理与应用',4);
+
+教师信息表（5）
+insert into teacher values(000001,'李英','女',to_date('19751103','yyyymmdd'),'讲师');
+insert into teacher values(000002,'王大山','男',to_date('19690302','yyyymmdd'),'副教授');
+insert into teacher values(000003,'张朋','男',to_date('19700213','yyyymmdd'),'讲师');
+insert into teacher values(000004,'陈为军','男',to_date('19850814','yyyymmdd'),'助教');
+insert into teacher values(000005,'宋浩然','男',to_date('19760423','yyyymmdd'),'讲师');
+insert into teacher values(000006,'许红霞','女',to_date('19660212','yyyymmdd'),'副教授');
+insert into teacher values(000007,'徐永军','男',to_date('19620124','yyyymmdd'),'教授');
+insert into teacher values(000008,'李桂菁','女',to_date('19601215','yyyymmdd'),'教授');
+insert into teacher values(000009,'王一凡','女',to_date('19741208','yyyymmdd'),'讲师');
+insert into teacher values(000010,'田峰','男',to_date('19880118','yyyymmdd'),'助教');
+
+学生信息表（1）
+insert into student values('08300010','李在','男',to_date('19911001','yyyymmdd'),'Rj0801',0);
+insert into student values('08300012','葛畅','男',to_date('19900808','yyyymmdd'),'Rj0801',0);
+insert into student values('08300015','刘晶','女',to_date('19900522','yyyymmdd'),'Rj0801',0);
+insert into student values('08300020','杨敏','女',to_date('19890108','yyyymmdd'),'Rj0801',0);
+insert into student values('08300030','胡贤斌','男',to_date('19901008','yyyymmdd'),'Rj0801',0);
+insert into student values('08300048','赵鸿泽','男',to_date('19890606','yyyymmdd'),'Rj0802',0);
+insert into student values('08300050','王威','男',to_date('19900610','yyyymmdd'),'Rj0802',0);
+insert into student values('08300067','赵玮','女',to_date('19900821','yyyymmdd'),'Rj0803',0);
+insert into student values('08300075','王娜娜','女',to_date('19910923','yyyymmdd'),'Rj0803',0);
+insert into student values('08300088','秦键','男',to_date('19890301','yyyymmdd'),'Rj0803',0);
+insert into student values('08300100','田邦仪','女',to_date('19900226','yyyymmdd'),'Rj0804',0);
+insert into student values('08300148','赵心砚','男',to_date('19910425','yyyymmdd'),'Rj0805',0);
+insert into student values('08300150','杨青','女',to_date('19891115','yyyymmdd'),'Rj0805',0);
+insert into student values('08300160','杨玲玲','女',to_date('19901212','yyyymmdd'),'Rj0806',0);
+
+选修课程信息表（4）
+insert into sc values('08300012','800003',88);
+insert into sc values('08300015','800003',null);
+insert into sc values('08300020','800003',91);
+insert into sc values('08300030','800003',78);
+insert into sc values('08300048','800003',95);
+insert into sc values('08300100','800011',67);
+insert into sc values('08300148','800011',58);
+insert into sc values('08300150','800011',89);
+insert into sc values('08300160','800011',71);
+insert into sc values('08300010','800001',88);
+insert into sc values('08300050','800001',50);
+insert into sc values('08300067','800001',91);
+insert into sc values('08300075','800001',78);
+insert into sc values('08300088','800001',95);
+insert into sc values('08300088','800013',90);
+insert into sc values('08300160','800002',71);
+insert into sc values('08300010','800002',88);
+
+教师任课情况表（6）
+insert into teaching values(000001,'800001','English');
+insert into teaching values(000002,'800002','Chinese');
+insert into teaching values(000002,'800003','Bilingual');
+insert into teaching values(000003,'800011','Chinese');
+insert into teaching values(000004,'800013','English');
+insert into teaching values(000005,'800001','Chinese');
+insert into teaching values(000006,'800002','Chinese');
+insert into teaching values(000007,'800003','English');
+insert into teaching values(000007,'800011','English');
+insert into teaching values(000008,'800013','Bilingual');
+
+
+24+30+7+6+8=75
+3
+(1)select * from student;
+(2)select sno,sname,sbirthday from student;
+(3)alter table student add addr varchar(20);
+   alter table student modify addr varchar(25);
+   alter table student drop column addr;
+(4)alter table student add register_date date;
+   alter table student modify register_date default sysdate;
+   alter table student drop column register_date;
+(5)alter table student add age number default 18;
+(6)alter table sc modify sname unique;(喵喵？)
+(7)create index index1 on course(sno,cno desc);(啥啊)
+(8)alter table student add constraint ch1 check( (ssex='男'and age<23) or (ssex='女'and age<21));
+(9)create view View_80 as select sno,cno,grade from sc where grade>80 with check option;
+(10)select * from View_80 where grade>90;
+(11)insert into View_80 values('08300010','800011',87);
+    insert into View_80 values('08300010','800011',78);
+(12)update View_80 set grade=90 where sno='08300010' and cno='800011';
+    update View_80 set grade=70 where sno='08300010' and cno='800011';
+(13)delete from View_80 where sno='08300010' and cno='800011';
+(14)select sno,ssex,sbirthday from student where ssex='女'and sbirthday<to_date('19800101','yyyymmdd');
+(15)select sno,sname,ssex,sbirthday from student where sname like '李%';
+(16)select t1.tno,tname,count(language)
+from teaching t1 ,teacher t2
+where language='English'
+and t1.tno=t2.tno
+group by t1.tno,tname
+having count(language)>0
+(17)select tno,tname,ttitle
+from teacher
+where ttitle<>'讲师'
+(18)select sno
+from sc
+where grade is null
+(19)select sno,grade
+from sc
+where grade<60
+order by grade asc
+(20)select tno,tname,tbirthday
+from teacher
+where to_char(tbirthday,'yyyy')='1970'
+(21)select cno,count(sno)
+from sc
+group by cno
+(22)select tno
+from teaching
+group by tno
+having count(cno)>=2
+(23)select avg(grade),min(grade),max(grade)
+from sc
+where cno='800001'
+group by cno
+
+select avg(grade),min(grade),max(grade)
+from sc
+group by cno
+having cno='800001'
+(24)select tname,tbirthday
+from teacher
+where tbirthday>to_date('19600101','yyyymmdd')
+order by tbirthday asc
+
+4
+(1)create view new_View as 
+select sc.sno,sname,classno,cname,grade
+from student s,course c,sc
+where sc.sno=s.sno and sc.cno=c.cno
+(2)select sno,sname,cname,grade
+from new_View
+where classno='Rj0801'
+(3)insert into new_View values('08300010','李在','Rj0801','数据库系统'，88)
+(4)select sno,sname,summ 
+from student join
+(select sno,sum(ccredit) summ 
+from sc join course using(cno) 
+where grade>=60
+group by sno)
+using (sno)
+(5)select sc.sno,sname,avg(grade),count(cno)
+from student,sc
+where sc.sno=student.sno	
+group by sc.sno,sname
+(6)select sc.sno,sname,sc.cno,cname
+from student,sc,course
+where grade is null
+and student.sno=sc.sno
+and sc.cno=course.cno
+(7)select sc.sno,sname,sc.cno,cname,grade
+from student,sc,course
+where grade is not null
+and grade<60
+and student.sno=sc.sno
+and sc.cno=course.cno
+(8)select sname,grade
+from sc,student
+where sc.sno=student.sno and
+cno=any(select cno from course
+where cname='程序设计语言')
+(9)select sc.sno,sname,classno,sc.cno,cname,grade
+from student,sc,course
+where student.sno=sc.sno
+and sc.cno=course.cno
+and classno=any (select classno from class where classdept='软件开发')
+(10)select tname,cname
+from teacher,teaching,course
+where teacher.tno=teaching.tno
+and course.cno=teaching.cno
+(11)select sno,sname,cname,grade-average
+from 
+((student join sc using(sno)) 
+  join course using(cno))
+join
+ (select cno,avg(grade)as average from sc
+  group by cno) 
+using (cno)
+where grade-average<0
+(12)select sname from student where classno =
+(select classno from student where sname='葛畅')
+(13)select sname from student a 
+where not exists(
+select sname
+from sc,student,course
+where sc.sno=student.sno
+and sc.cno=course.cno
+and cname='计算机基础'
+and a.sname=student.sname
+)
+(14)select tname
+from course,teacher,teaching
+where teacher.tno=teaching.tno
+and teaching.cno=course.cno
+and cname='数据库系统'
+union select tname
+from course,teacher,teaching
+where teacher.tno=teaching.tno
+and teaching.cno=course.cno
+and cname='数据结构'
+(15)select tname from teacher t1
+where not exists(
+select cno from teaching 
+where cno not in
+(select cno from teaching
+where t1.tno=teaching.tno))
+(16)select unique sname from student,sc p
+where student.sno=p.sno
+and '800001' in 
+ (select cno from sc
+  where sc.sno=p.sno)
+and '800002' in 
+ (select cno from sc
+  where sc.sno=p.sno)
+and ssex='女'
+(17)select unique sname from student,sc p
+where student.sno=p.sno
+and '800001' not in 
+ (select cno from sc
+  where sc.sno=p.sno)
+and '800002' not in 
+ (select cno from sc
+  where sc.sno=p.sno)
+(18)select sname from student,sc
+where student.sno=sc.sno
+and grade=95
+and ssex='女'
+(19)select sname from student,sc 
+where student.sno=sc.sno
+and ssex='女'
+group by sc.sno,sname
+having count(cno)>=3
+(20)select sname from student,sc
+where student.sno=sc.sno
+and ssex='男'
+group by sc.sno,sname
+having avg(grade)>80
+(21)select avg(grade) from teacher,teaching,sc
+where tname='徐永军'
+and teacher.tno=teaching.tno
+and teaching.cno=sc.cno
+group by sc.cno
+(22)
+(23)select distinct sname from student s,sc
+where not exists(
+select grade from sc
+where s.sno=sc.sno
+and sc.grade<90)
+(24)select sname from student
+where ssex='男'
+and age>all(select age from student
+where ssex='女')
+(25)select sname from student s
+where ssex='女'j
+and '800002' not in(
+select cno from sc
+where s.sno=sc.sno) 
+(26)select sname from student s
+where not exists(
+select * from sc
+where sc.sno=s.sno
+and grade<60)
+(27)select sname from student s
+where (select count(unique(cno)) from sc)
+=(select count(unique(cno)) from sc
+where s.sno=sc.sno)
+(28)select sname from student,sc s
+where student.sno=s.sno
+and not exists(
+select cno from sc,student 
+where sname='葛畅'
+and student.sno=sc.sno
+and cno not in (
+select cno from sc
+where sc.sno=s.sno))
+(29)查询平均成绩最高的学生姓名
+select sname from student,sc 
+where student.sno=sc.sno
+and grade is not null
+group by sname
+having avg(grade) >= all
+(select avg(grade) from student,sc 
+where student.sno=sc.sno
+and grade is not null
+group by sname)
+
+(30)找出比所在班级平均成绩高的学生信息
+select sname from 
+(select sname,classno,avg(grade) avgeveryone
+from student join sc using(sno) 
+group by sno,sname,classno)
+join
+(select classno,avg(grade) avgclass
+from student join sc using(sno)
+group by classno)
+using(classno)
+where avgeveryone>avgclass
+5
+(1)update sc set grade=grade*1.05 
+where (cno,sno)in(
+select sc.cno,sc.sno from teacher,teaching,sc,student
+where tname='徐永军'
+and teacher.tno=teaching.tno
+and teaching.cno=sc.cno
+and sc.sno=student.sno
+and ssex='女')
+(2)create table STUD(s# varchar2(8),sname varchar2(8),sex varchar2(2))
+insert into stud (select sc.sno,sname,ssex from student,sc 
+where sc.sno=student.sno and grade>=80)
+(3)delete from sc where grade is null
+(4)delete from sc where sno =(select sno from student where sname='王威')
+(5)update sc set grade is null where cno = (select)
+(6)update sc set grade=grade*1.05
+where sno in(select sc.sno from student,sc 
+where sc.sno=student.sno
+and ssex='女'
+and grade<(select avg(grade)from sc))
+(7)update sc set grade=grade*1.05 
+where grade<=75
+update sc set grade=grade*1.04 
+where grade>75
+
+6 
+(1)
+set serveroutput on;
+create or replace procedure insert_student (
+s_no in varchar2,
+s_name in varchar2,
+s_sex in varchar2,
+s_birthday in varchar2,
+s_classno in varchar2
+)
+as 
+begin 
+  insert into student(sno,sname,ssex,sbirthday,classno) 
+  values(s_no,s_name,s_sex,to_date(s_birthday,'yyyy-mm-dd'),s_classno);
+  commit;
+exception
+  when others then dbms_output.put_line('error,fail to insert');
+end; 
+/
+execute insert_student ('15301013','王典','男','1997-04-14','Rj0801');
+
+(2)
+set serveroutput on;
+create or replace procedure insert_course(
+c_no in varchar2,
+c_name in varchar,
+c_credit in smallint :=4 
+)
+as
+begin
+  insert into course(cno,cname,ccredit) values(c_no,c_name,c_credit);
+  commit;
+exception
+  when others then dbms_output.put_line('error,fail to insert');
+end; 
+/
+
+execute insert_course('811111','哈哈',2);
+execute insert_course('811112','哦呵呵');
+
+(3)
+create or replace  procedure query_student(
+s_no in varchar
+)
+as
+s_name varchar2(8);
+s_sex varchar2(2);
+s_birthday date;
+s_classno varchar2(6);
+begin
+  select sname,ssex,sbirthday,classno   
+  into s_name,s_sex,s_birthday,s_classno
+  from student where s_no=sno;
+  dbms_output.put_line(s_name||' '||s_sex||' '||to_char(s_birthday,'yyyy-mm-dd')||' '||s_classno);
+exception
+  when others then dbms_output.put_line('error,fail to query');
+end; 
+/
+
+execute query_student('08300050');
+
+(4)
+set serveroutput on;
+create or replace procedure good_boy
+as
+  cursor c1 is select sname,ssex,sbirthday,avg(grade)
+  from student join sc using(sno) group by sno,sname,ssex,sbirthday
+  having avg(grade)>80;
+  s_name varchar(8);
+  s_sex varchar(2);
+  s_birthday date;
+  s_avg number;
+begin
+  open c1;
+  loop 
+    fetch c1 into s_name,s_sex,s_birthday,s_avg;
+    exit when c1%notfound;
+    dbms_output.put_line(s_name||' '||s_sex||' '||s_birthday||' '||s_avg);
+  end loop;
+  close c1;
+exception
+  when others then dbms_output.put_line('error,fail to query');
+end;
+/
+
+execute good_boy;
+
+(5)
+set serveroutput on;
+create or replace procedure busy_boy(name varchar2)
+as
+  cursor c1 is select sno,sname,count(cno),avg(grade),sum(ccredit)
+  from (student join sc using(sno))join course using(cno) 
+  group by sno,sname
+  having sname in( 
+    select sname from student,sc s
+    where student.sno=s.sno
+    and not exists(
+      select cno from sc,student 
+      where sname=name
+      and student.sno=sc.sno
+      and cno not in (
+        select cno from sc where sc.sno=s.sno
+        )
+      )
+   );
+  s_no varchar(8);
+  s_name varchar(8);
+  s_number smallint;
+  s_avg number;
+  s_total smallint;
+begin
+  open c1;
+  loop 
+    fetch c1 into s_no,s_name,s_number,s_avg,s_total;
+    exit when c1%notfound;
+    dbms_output.put_line('学号'||s_no||' 姓名'||s_name||
+    ' 选课数'||s_number||' 平均成绩'||s_avg||' 总学分'||s_total);
+  end loop;
+  close c1;
+exception
+  when others then dbms_output.put_line('error,fail to query');
+end;
+/
+
+execute busy_boy('葛畅');
+
+(6)set serveroutput on;
+create or replace procedure bad_boy(class varchar2)
+as
+  cursor c1 is select sno,sname,avgeveryone from 
+  (select sno,sname,classno,avg(grade) avgeveryone
+  from student join sc using(sno) 
+  group by sno,sname,classno);
+  
+  s_no varchar(8);
+  s_name varchar(8);
+  s_avg number;
+  avgclass number;
+begin
+  select avg(grade) into avgclass 
+  from student join sc using(sno)
+  where class=classno
+  group by classno;
+  open c1;
+  loop 
+    fetch c1 into s_no,s_name,s_avg;
+    exit when c1%notfound;
+    if s_avg<avgclass then
+      dbms_output.put_line('学号'||s_no||' 姓名'||s_name||
+      ' 平均成绩'||s_avg);
+     end if;
+  end loop;
+  close c1;
+exception
+  when others then dbms_output.put_line('error,fail to query');
+end;
+/
+
+execute bad_boy('Rj0801');
+
+
+7
+(1)
+set serveroutput on;
+create or replace trigger display_trigger
+before insert on student
+for each row
+declare 
+  cursor c1 is select sno,sname,ssex,sbirthday,classno from student;
+  s_no student.sno%type;
+  s_name student.sname%type;
+  s_sex student.ssex%type;
+  s_birthday student.sbirthday%type;
+  s_class student.classno%type;
+begin 
+  open c1;
+  loop
+  fetch c1 into s_no,s_name,s_sex,s_birthday,s_class;
+    exit when c1%notfound;
+    dbms_output.put_line('学号'||s_no||' 姓名'||s_name||' 性别'
+    ||s_sex||' 生日'||to_char(s_birthday,'yyyy-mm-dd')||' 班级'||s_class);
+  end loop;
+  close c1;
+   dbms_output.put_line('新:学号'||:new.sno||' 姓名'||:new.sname||' 性别'
+    ||:new.ssex||' 生日'||to_char(:new.sbirthday,'yyyy-mm-dd')||' 班级'||:new.classno);
+exception
+  when others then dbms_output.put_line('error,fail to trig');
+end ;
+/
+execute insert_student('15301001','张三丰','男','1997-04-14','Rj0801');
+(2)
+set serveroutput on;
+create or replace trigger add_number
+after insert on student
+for each row
+declare
+newnumber class.studentnumber%type;
+begin
+  update class set studentnumber=studentnumber+1 
+  where classno=:new.classno;
+  select studentnumber into newnumber from class 
+  where classno=:new.classno;
+  dbms_output.put_line(' 人数变为'||newnumber);
+exception
+  when others then dbms_output.put_line('error,fail to trig2');
+end ;
+/
+execute insert_student('15301001','张三丰','男','1997-04-14','Rj0801');
+(3) 
+set serveroutput on;
+create or replace trigger sub_number
+after delete on student
+for each row
+declare
+  newnumber class.studentnumber%type;
+begin
+  update class set studentnumber=studentnumber-1 
+  where classno=:old.classno;
+  select studentnumber into newnumber from class 
+  where classno=:old.classno;
+  dbms_output.put_line(' 人数变为'||newnumber);
+exception
+  when others then dbms_output.put_line('error,fail to trig3');
+end ;
+/
+delete from student where sno= '15301001';
+(4)
+set serveroutput on;
+create or replace trigger move_student
+after update of classno on student
+for each row
+declare
+  newnumber1 class.studentnumber%type;
+  newnumber2 class.studentnumber%type;
+begin
+  update class set studentnumber=studentnumber-1 
+  where classno=:old.classno;
+  update class set studentnumber=studentnumber+1 
+  where classno=:new.classno;
+  select studentnumber into newnumber1 from class 
+  where classno=:old.classno;
+  select studentnumber into newnumber2 from class 
+  where classno=:new.classno;
+  dbms_output.put_line(' 旧班人数变为'||newnumber1);
+  dbms_output.put_line(' 新班人数变为'||newnumber2);
+exception
+  when others then dbms_output.put_line('error,fail to trig4');
+end ;
+/
+update student set classno='Rj0802' where sno='15301001';
+(5)
+set serveroutput on;
+create or replace trigger new_student
+before insert on sc
+for each row
+declare
+temp varchar(8);
+cursor c1 is select sno from student where sno=:new.sno;
+begin 
+  open c1;
+  fetch c1 into temp;
+  dbms_output.put_line(temp);
+  if c1%notfound then  
+  insert into student(sno,sname) values  (:new.sno,'NULL');
+  dbms_output.put_line('插入主键成功');
+end if;
+close c1;
+exception
+  when others then dbms_output.put_line('error,fail to trig5');
+end ;
+/
+  
+insert into sc values('08300010','800011',90);
+insert into sc values('08300000','800011',90);
+(6)
+set serveroutput on;
+create or replace trigger sogood
+before update on sc
+for each row
+declare
+begin 
+if :old.grade>:new.grade then
+raise_application_error(-20000,'老师太帅了');
+end if;
+end ;
+/ 
+
+update sc set grade=50 where sno='08300000' and cno='800011';
+(7)
+
+
+set serveroutput on;
+create or replace trigger t7
+before insert or update on sc
+for each row
+declare
+pragma autonomous_transaction;
+tempnumber number:=0;
+begin
+select count(cno) into tempnumber from sc group by sno having :new.sno=sno;
+dbms_output.put_line('选课前已选课数'||tempnumber);
+if tempnumber>2 then
+raise_application_error(-20000,'少选几个吧');
+end if;
+
+exception
+  when no_data_found then dbms_output.put_line('哈哈');
+end;
+/ 
+
+insert into sc values('15301013','800001',2);
+(8)
+set serveroutput on;
+create or replace trigger t8
+before insert or delete on sc
+for each row
+declare
+tempfen number:=0;
+begin
+  if inserting then
+  select ccredit into tempfen from course
+    where cno=:new.cno;
+  update student set Totalcredit=Totalcredit+tempfen
+    where sno=:new.sno;
+  end if;
+  
+  if deleting then
+  select ccredit into tempfen from course
+    where cno=:old.cno;
+  update student set Totalcredit=Totalcredit-tempfen
+    where sno=:old.sno;
+  end if;
+  exception
+  when others then dbms_output.put_line('error,fail to trig8');
+end;  
+/
+
+insert into sc values('15301013','800001',2);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+set serveroutput on;
+create or replace procedure busy_boy(name varchar2)
+as
+  cursor c1 is select sno,sname,count(cno),avg(grade),sum(ccredit)
+  from (student join sc using(sno))join course using(cno) 
+  group by sno,sname
+  having sname in( 
+    select sname from student,sc s
+    where student.sno=s.sno
+    and not exists(
+      select cno from sc,student 
+      where sname=name
+      and student.sno=sc.sno
+      and cno not in (
+        select cno from sc where sc.sno=s.sno
+        )
+      )
+   );
+  s_no varchar(8);
+  s_name varchar(8);
+  s_number smallint;
+  s_avg number;
+  s_total smallint;
+begin
+  open c1;
+  loop 
+    fetch c1 into s_no,s_name,s_number,s_avg,s_total;
+    exit when c1%notfound;
+    dbms_output.put_line('学号'||s_no||' 姓名'||s_name||
+    ' 选课数'||s_number||' 平均成绩'||s_avg||' 总学分'||s_total);
+  end loop;
+  close c1;
+exception
+  when others then dbms_output.put_line('error,fail to query');
+end;
+/
+
+execute busy_boy('葛畅');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
