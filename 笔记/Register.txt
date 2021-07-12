@@ -1,8 +1,0 @@
-这是创建Dialog时加的类
-RegisterDlg.h
-头文件里面的是新建dialog里面的
-RegisterDlg.cpp
-里面只有两个消息处理程序
-void RegisterDlg::OnBnClickedButton1()//退出注册页面
-void RegisterDlg::OnBnClickedButton2()//注册
-获取用户名和密码，并将其发送给服务器，如果注册成功，会把用户信息保存在本地
